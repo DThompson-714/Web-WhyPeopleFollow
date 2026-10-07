@@ -17,7 +17,7 @@ Hi there,
 
 Thanks for subscribing to **Worth Following**. I'm David Thompson, and for most of my 25 years leading IT teams, I proudly told anyone who would listen that I was the worst manager ever.
 
-I meant it as a compliment.
+I meant it and I was proud of it.
 
 I was an accidental manager. The job was offered to me, I took it for the raise, and I had no idea what I was doing. Then a senior leader told me they saw a lot of Emotional Intelligence in me. I said thank you, went back to my desk, and googled it.
 

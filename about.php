@@ -50,7 +50,7 @@ include __DIR__ . '/includes/header.php';
 
         <p>I spent 25 years in Information Technology management, mostly in Higher Education, and for most of that time I proudly told anyone who would listen that I was the worst manager ever.</p>
 
-        <p class="beat">I meant it as a compliment.</p>
+        <p class="beat">I meant it and I was proud of it.</p>
 
         <p>You see, I was never trying to be a manager. It was offered to me early in my career and I accepted it, mostly because the salary increase was hard to argue with. I had no formal training, no real role model to follow, and honestly no idea what I was doing. What I did have was a very clear memory of every workplace experience I had ever been through: the layoffs, the indifferent bosses, the environments where you were useful until you weren’t. And a very strong feeling that there had to be a better way to treat people.</p>
 

@@ -49,7 +49,7 @@ include __DIR__ . '/includes/header.php';
             <p class="eyebrow">Hello, pull up a chair</p>
             <h2>I might be the worst manager ever. <em>And you should be too!</em></h2>
             <p>My name is David Thompson. I spent 25 years leading IT teams, mostly in Higher Education, and for most of that time I proudly told anyone who would listen that I was the worst manager ever.</p>
-            <p>I meant it as a compliment. I was an accidental manager. The job was offered to me, I took it for the raise, and I had no idea what I was doing. Then a senior leader told me they saw a lot of Emotional Intelligence in me. I said thank you, then went back to my desk and googled it.</p>
+            <p>I meant it and I was proud of it. I was an accidental manager. The job was offered to me, I took it for the raise, and I had no idea what I was doing. Then a senior leader told me they saw a lot of Emotional Intelligence in me. I said thank you, then went back to my desk and googled it.</p>
             <p>That moment, and the Leadership Academy that followed, set me on a different path. I stopped trying to be a good manager and started trying to be a leader. My teams were productive, creative and committed to each other, and former team members still call me for advice.</p>
             <p class="lede-question">I still call the leaders from my past when I need guidance. I never called a former manager who wasn’t also a leader. <strong>Have you?</strong></p>
             <div class="hello-actions">
