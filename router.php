@@ -6,14 +6,14 @@
  */
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if (preg_match('#^/(includes|content|data)/#', $path)) {
+if (preg_match('#^/(includes|content|data|docs)/#', $path)) {
     http_response_code(403);
     exit('Forbidden');
 }
 if ($path !== '/' && is_file(__DIR__ . $path) && !str_ends_with($path, '.php')) {
     return false; // static asset
 }
-if (preg_match('#^/resources/([a-z0-9-]+)/?$#', $path, $m)) {
+if (preg_match('#^/articles/([a-z0-9-]+)/?$#', $path, $m)) {
     $_GET['slug'] = $m[1];
     require __DIR__ . '/article.php';
     return true;

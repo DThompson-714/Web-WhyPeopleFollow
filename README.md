@@ -1,7 +1,9 @@
-# Why People Follow — website
+# Why People Follow
 
-A hand-editable PHP + JavaScript site for [whypeoplefollow.com](https://www.whypeoplefollow.com).
-No WordPress, no database, no build step. Every page is a plain PHP file you can open and edit.
+The personal leadership site of David Thompson, built with hand-editable PHP and JavaScript for [whypeoplefollow.com](https://www.whypeoplefollow.com).
+No WordPress, no database, no build step. Every page is a plain file you can open and edit.
+
+> You can't make someone follow you. But you can become someone worth following.
 
 ## Run it locally
 
@@ -13,60 +15,86 @@ Then open http://localhost:8000. (`router.php` copies the clean-URL rules from `
 
 ## Deploy
 
-Upload everything to any Apache host with PHP 8.0+ (most shared hosting works). `.htaccess` takes care of
-clean URLs, blocking private folders, caching and compression.
+Upload everything to any Apache host running PHP 8.0 or newer (most shared hosting works). `.htaccess` handles
+clean URLs, blocks the private folders, and sets up caching and compression.
 
 1. Make sure the `data/` folder is writable by the web server (`chmod 775 data`).
-2. When SSL is on, uncomment the HTTPS/www redirect at the top of `.htaccess`.
+2. Once SSL is on, uncomment the HTTPS/www redirect at the top of `.htaccess`.
 3. Submit `https://www.whypeoplefollow.com/sitemap.xml` in Google Search Console.
+
+## Pages
+
+| Address | File | What it is |
+|---|---|---|
+| `/` | `index.php` | Home: hero sign-up, "Hello, pull up a chair", Manager → Leader switch, latest articles |
+| `/start-here` | `start-here.php` | Welcome, the three questions, the "Would you follow you?" quiz, the reading path |
+| `/articles` | `articles.php` | All articles, with Stories / Perspectives filters |
+| `/articles/...` | `article.php` | A single article (content comes from `content/articles/`) |
+| `/newsletter` | `newsletter.php` | The Worth Following newsletter page |
+| `/about` | `about.php` | David's story, "The road here" timeline, why the site exists |
+| `/contact` | `contact.php` | "Write to David" form (linked in the footer) |
+| `/privacy` | `privacy.php` | Privacy policy |
 
 ## Where to edit things
 
-| What you want to change | File |
+| What you want to change | Where |
 |---|---|
-| Site name, email, social links, Google Analytics ID | `includes/config.php` → `$site` |
-| Navigation menu & header button | `includes/config.php` → `$nav`, `$cta` |
-| The five pillars (Trust, Purpose, Care, Clarity, Growth) | `includes/config.php` → `$pillars` |
-| Programs / offers and their buttons | `includes/config.php` → `$programs` |
-| Testimonials (**replace the placeholders**) | `includes/config.php` → `$testimonials` |
-| FAQs | `includes/config.php` → `$faqs` |
-| Homepage copy & assessment questions | `index.php` |
-| Weekly habits per pillar | `approach.php` → `$habits` |
-| Your name, photo and story (**replace placeholders**) | `about.php` → `$founder` |
+| Email address, social links, Google Analytics | `includes/config.php` → `$site` |
+| Your name, title, short bio, photo | `includes/config.php` → `$author` |
+| Newsletter name, cadence, provider and API key | `includes/config.php` → `$newsletter` |
+| Menu and header button | `includes/config.php` → `$nav`, `$cta` |
+| Start Here reading-path order | `includes/config.php` → `$reading_path` |
+| Quiz statements and themes | `includes/config.php` → `$quiz_questions`, `$quiz_themes` |
+| Manager → Leader switch lines | `index.php` → `$shifts` |
+| About timeline | `about.php` → `$timeline` |
 | Colors and fonts | `assets/css/style.css` → `:root` at the top |
-| Animations and interactive features | `assets/js/main.js` |
+| Your photo | replace `assets/img/david-thompson.jpg` and `.webp` (square, 800×800) plus `david-thompson-sm.jpg` (160×160) |
 
 ### Writing a new article
 
-Copy any file in `content/articles/`, rename it (the file name becomes the URL, e.g.
-`content/articles/giving-feedback.php` → `/resources/giving-feedback`) and edit the title, date, pillar and body.
-It appears on the Resources page and in the sitemap automatically. Articles with a future date stay hidden until that day.
+1. Copy any file in `content/articles/` and rename it. The file name becomes the address, so use a few lowercase words
+   people might search for, separated by hyphens: `content/articles/giving-honest-feedback.php` → `/articles/giving-honest-feedback`.
+2. Edit the title, excerpt, date, category (`stories` or `perspectives`) and body. Articles with a future date stay hidden until that day.
+3. The article shows up on the Articles page and in the sitemap automatically.
 
-## Forms
+Formatting helpers you can use in an article body:
 
-- **Contact form** (`contact.php`) emails `$site['email']` using PHP `mail()` and also saves a copy to
-  `data/contact-messages.csv`, so no message is lost if your host's mail isn't set up.
-- **Newsletter** (`subscribe.php`) saves emails to `data/subscribers.csv`. To use Mailchimp, ConvertKit, etc.,
-  replace the save block in `subscribe.php` with their API call.
+```html
+<p class="beat">A short line that should stand on its own.</p>
+<p class="aside">An aside to the reader, shown in italics.</p>
+<blockquote class="pull-quote"><p>A line worth highlighting.</p></blockquote>
+<div class="takeaway"><p>The lesson, in a highlighted box.</p></div>
+```
 
-Both forms have CSRF protection and a spam honeypot. `data/` is blocked from the web and ignored by git.
+## The Worth Following newsletter
 
-## What's on the site
+Every sign-up form posts to `subscribe.php`, which **always** saves the email to `data/subscribers.csv`
+(along with where the person signed up: home, quiz, a specific article, and so on).
 
-- **Hero** with an animated "follower" network: dots are drawn toward a glowing leader that follows your cursor.
-- **Manager → Leader switch** that shows the five mindset shifts.
-- **Free Leader Assessment**: 10 questions, an animated score, a breakdown by pillar and a personal "focus pillar".
-  It runs entirely in the browser, and if GA4 is set it records an `assessment_complete` event.
-- Approach page with tabs, Programs page with FAQs, Resources with pillar filters, reading progress bar on articles.
-- SEO: unique titles and descriptions, canonical URLs, Open Graph/Twitter cards, JSON-LD (Organization, WebSite,
-  Article, FAQPage), auto-generated `sitemap.xml`, `robots.txt`, clean URLs.
-- Accessibility: keyboard-friendly, skip link, ARIA on interactive widgets, respects reduced-motion settings.
+To connect a newsletter service, edit `$newsletter` in `includes/config.php`:
+
+- **Kit (ConvertKit):** set `'provider' => 'kit'`, your v4 API key and your form ID.
+- **MailerLite:** set `'provider' => 'mailerlite'`, your API token and (optionally) a group ID.
+
+Test one sign-up after connecting. If the service rejects a sign-up, the email is still saved and also logged to
+`data/provider-errors.csv` so you can import it later. Import any existing `subscribers.csv` rows into the service once you connect.
+
+Draft newsletter content lives in `docs/newsletter/` (not public):
+- `welcome-sequence.md`: three automatic welcome emails
+- `field-guide-draft.md`: a free "Worst Manager Ever's Field Guide" download for new subscribers
+
+## SEO built in
+
+- Keyword-focused addresses (e.g. `/articles/manager-vs-leader`), with your own titles kept on the page
+- Unique search titles and descriptions, canonical URLs, Open Graph and Twitter share cards
+- Structured data: WebSite, Person (About), Blog, BlogPosting (articles), FAQPage (Newsletter)
+- An automatic `sitemap.xml`, plus `robots.txt`
 
 ## Before launch checklist
 
-- [ ] Replace placeholder testimonials in `includes/config.php` (or set `$testimonials = [];` to hide the section)
-- [ ] Add your name, story and `assets/img/founder.jpg` in `about.php`
-- [ ] Confirm the contact email and social links in `includes/config.php`
-- [ ] Point program buttons to your real booking or checkout links
-- [ ] Have the privacy policy (`privacy.php`) reviewed
-- [ ] Move any existing WordPress posts into `content/articles/`, and add 301 redirects in `.htaccess` for old URLs
+- [ ] Set your real email address in `includes/config.php` (currently `hello@whypeoplefollow.com`)
+- [ ] Add your LinkedIn (and any other) profile links
+- [ ] Choose a newsletter service and connect it
+- [ ] Load the welcome sequence into your newsletter service
+- [ ] Have `privacy.php` reviewed, and name your newsletter service in it
+- [ ] Add your Google Analytics ID (optional)

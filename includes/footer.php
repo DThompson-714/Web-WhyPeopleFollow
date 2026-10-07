@@ -1,21 +1,17 @@
 </main>
 
+<?php if (empty($page['hide_footer_cta'])): ?>
 <section class="cta-band">
     <div class="container cta-band-inner reveal">
         <div>
-            <h2>Your team is deciding right now whether to follow you.</h2>
-            <p>Get one practical leadership idea every week — written for new managers, readable in five minutes.</p>
+            <p class="eyebrow">The <?= e($newsletter['name']) ?> newsletter</p>
+            <h2>A newsletter <em>worth following,</em> about becoming someone <em>worth following.</em></h2>
+            <p>One honest story or lesson from 25 years of leading people, <?= e($newsletter['cadence']) ?>. Short enough to read with your coffee.</p>
         </div>
-        <form class="newsletter" action="/subscribe" method="post" data-ajax-form>
-            <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
-            <label class="sr-only" for="nl-email">Email address</label>
-            <input id="nl-email" type="email" name="email" placeholder="you@company.com" required autocomplete="email">
-            <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <button class="btn btn-primary" type="submit">Send me the weekly idea</button>
-            <p class="form-status" role="status" aria-live="polite"></p>
-        </form>
+        <?= newsletter_form('footer', 'Get ' . $newsletter['name']) ?>
     </div>
 </section>
+<?php endif; ?>
 
 <footer class="site-footer">
     <div class="container footer-grid">
@@ -26,34 +22,32 @@
                 </span>
                 <span class="logo-text">Why People <strong>Follow</strong></span>
             </a>
-            <p><?= e($site['tagline']) ?> Leadership development for new managers who want to inspire, not just supervise.</p>
-            <div class="social">
-                <?php foreach ($site['social'] as $network => $link): if (!$link) continue; ?>
-                <a href="<?= e($link) ?>" target="_blank" rel="noopener" aria-label="<?= e(ucfirst($network)) ?>"><?= icon($network) ?></a>
-                <?php endforeach; ?>
-                <a href="mailto:<?= e($site['email']) ?>" aria-label="Email"><?= icon('mail') ?></a>
+            <div class="footer-author">
+                <img src="<?= e($author['photo_sm']) ?>" alt="" width="56" height="56" loading="lazy">
+                <p><?= e($author['short_bio']) ?></p>
             </div>
         </div>
         <div>
-            <h3>Explore</h3>
+            <h3>Read</h3>
             <ul>
                 <?php foreach ($nav as $label => $path): ?>
                 <li><a href="<?= e($path) ?>"><?= e($label) ?></a></li>
                 <?php endforeach; ?>
-                <li><a href="/contact">Contact</a></li>
             </ul>
         </div>
         <div>
-            <h3>Programs</h3>
+            <h3>Say hello</h3>
             <ul>
-                <?php foreach ($programs as $p): ?>
-                <li><a href="/programs"><?= e($p['name']) ?></a></li>
+                <li><a href="/contact">Write to David</a></li>
+                <li><a href="/newsletter"><?= e($newsletter['name']) ?> newsletter</a></li>
+                <?php foreach ($site['social'] as $network => $link): if (!$link) continue; ?>
+                <li><a href="<?= e($link) ?>" target="_blank" rel="noopener"><?= e(ucfirst($network)) ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
     </div>
     <div class="container footer-bottom">
-        <p>&copy; <?= date('Y') ?> <?= e($site['name']) ?>. All rights reserved.</p>
+        <p>&copy; <?= date('Y') ?> <?= e($author['name']) ?> &middot; <?= e($site['name']) ?></p>
         <p><a href="/privacy">Privacy</a></p>
     </div>
 </footer>

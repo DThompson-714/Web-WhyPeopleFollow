@@ -3,10 +3,7 @@ require_once __DIR__ . '/includes/functions.php';
 
 $errors = [];
 $sent = false;
-$values = ['name' => '', 'email' => '', 'interest' => $_GET['interest'] ?? 'general', 'message' => ''];
-if (!isset($interests[$values['interest']])) {
-    $values['interest'] = 'general';
-}
+$values = ['name' => '', 'email' => '', 'message' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($values as $k => $_) {
@@ -25,37 +22,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!filter_var($values['email'], FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Please enter a valid email address.';
     }
-    if (!isset($interests[$values['interest']])) {
-        $values['interest'] = 'general';
-    }
     if (mb_strlen($values['message']) < 10 || mb_strlen($values['message']) > 5000) {
         $errors[] = 'Please write a message (at least 10 characters).';
     }
 
     if (!$errors) {
-        $clean = fn($s) => str_replace(["\r", "\n"], ' ', $s);
-        $subject = 'New enquiry: ' . $interests[$values['interest']];
-        $body = "Name: {$values['name']}\nEmail: {$values['email']}\nInterest: {$interests[$values['interest']]}\n\n{$values['message']}\n";
+        $subject = 'Why People Follow: message from ' . str_replace(["\r", "\n"], ' ', $values['name']);
+        $body = "Name: {$values['name']}\nEmail: {$values['email']}\n\n{$values['message']}\n";
         $headers = [
             'From'         => $site['name'] . ' <no-reply@' . parse_url($site['url'], PHP_URL_HOST) . '>',
-            'Reply-To'     => $clean($values['email']),
+            'Reply-To'     => $values['email'],
             'Content-Type' => 'text/plain; charset=UTF-8',
         ];
         $sent = @mail($site['email'], $subject, $body, $headers);
 
-        // Always keep a backup copy so no lead is lost if mail() isn't configured.
-        if (append_csv('contact-messages.csv', [date('c'), $values['name'], $values['email'], $values['interest'], $values['message']])) {
+        // Always keep a backup copy so no message is lost if mail() isn't configured.
+        if (append_csv('contact-messages.csv', [date('c'), $values['name'], $values['email'], $values['message']])) {
             $sent = true;
         }
         if (!$sent) {
-            $errors[] = 'Sorry, your message could not be sent. Please email us at ' . $site['email'] . '.';
+            $errors[] = 'Sorry, your message could not be sent. Please email me at ' . $site['email'] . '.';
         }
     }
 }
 
 $page = [
-    'title'       => 'Contact',
-    'description' => 'Questions about coaching, Leader Lab or training for your new managers? Get in touch with Why People Follow.',
+    'title'       => 'Write to David',
+    'description' => 'Have a leadership story, a question about your team, or just want to say hello? Write to David Thompson at Why People Follow.',
     'body_class'  => 'page-contact',
 ];
 
@@ -64,9 +57,9 @@ include __DIR__ . '/includes/header.php';
 
 <section class="page-hero">
     <div class="container narrow">
-        <p class="eyebrow reveal">Contact</p>
-        <h1 class="reveal">Let's talk about the leader you want to be.</h1>
-        <p class="lead reveal">Tell us a little about where you are. We reply to every message within two business days.</p>
+        <p class="eyebrow reveal">Say hello</p>
+        <h1 class="reveal">Pull up a chair. <em>What’s on your mind?</em></h1>
+        <p class="lead reveal">A question about your team, a story of your own, a manager you’re trying not to become. I read every message myself.</p>
     </div>
 </section>
 
@@ -75,7 +68,7 @@ include __DIR__ . '/includes/header.php';
         <?php if ($sent && !$errors): ?>
         <div class="card success reveal">
             <h2>Thank you, <?= e($values['name']) ?>.</h2>
-            <p>Your message is on its way. In the meantime, have you taken the <a href="/#assessment">Leader Assessment</a>?</p>
+            <p>Your message is on its way to me. In the meantime, have you tried the <a href="/start-here#quiz">“Would you follow you?” reflection</a>?</p>
         </div>
         <?php else: ?>
         <form class="card contact-form reveal" method="post" action="/contact" novalidate>
@@ -95,18 +88,10 @@ include __DIR__ . '/includes/header.php';
                 </div>
             </div>
             <div class="field">
-                <label for="interest">I'm interested in</label>
-                <select id="interest" name="interest">
-                    <?php foreach ($interests as $val => $label): ?>
-                    <option value="<?= e($val) ?>"<?= $values['interest'] === $val ? ' selected' : '' ?>><?= e($label) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <label for="message">Your message</label>
+                <textarea id="message" name="message" rows="7" required minlength="10" maxlength="5000" placeholder="I just took over a team of six, and two of them applied for my job…"><?= e($values['message']) ?></textarea>
             </div>
-            <div class="field">
-                <label for="message">What's on your mind?</label>
-                <textarea id="message" name="message" rows="6" required minlength="10" maxlength="5000" placeholder="e.g. I just took over a team of six and two of them applied for my role..."><?= e($values['message']) ?></textarea>
-            </div>
-            <button class="btn btn-primary btn-lg" type="submit">Send message <?= icon('arrow') ?></button>
+            <button class="btn btn-primary btn-lg" type="submit">Send to David <?= icon('arrow') ?></button>
         </form>
         <?php endif; ?>
     </div>

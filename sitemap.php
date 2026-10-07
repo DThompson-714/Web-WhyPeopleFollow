@@ -5,11 +5,11 @@ require_once __DIR__ . '/includes/articles.php';
 header('Content-Type: application/xml; charset=utf-8');
 
 $urls = [];
-foreach (array_merge(array_values($nav), ['/contact', '/privacy']) as $path) {
+foreach (array_values($nav) as $path) {
     $urls[] = ['loc' => abs_url($path), 'lastmod' => null];
 }
 foreach (all_articles() as $a) {
-    $urls[] = ['loc' => abs_url('/resources/' . $a['slug']), 'lastmod' => $a['date']];
+    $urls[] = ['loc' => abs_url(article_url($a)), 'lastmod' => $a['date']];
 }
 
 echo '<?xml version="1.0" encoding="UTF-8"?>', "\n";

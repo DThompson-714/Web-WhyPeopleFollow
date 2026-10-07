@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /data/
 Disallow: /includes/
+Disallow: /subscribe
 
 Sitemap: https://www.whypeoplefollow.com/sitemap.xml

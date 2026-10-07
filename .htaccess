@@ -12,14 +12,14 @@ RewriteEngine On
 # RewriteRule ^ https://www.whypeoplefollow.com%{REQUEST_URI} [L,R=301]
 
 # Block direct access to internals
-RewriteRule ^(includes|content|data)/ - [F,L]
+RewriteRule ^(includes|content|data|docs)/ - [F,L]
 
 # Redirect /page.php to /page (clean URLs)
 RewriteCond %{THE_REQUEST} \s/([a-z0-9-]+)\.php[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L]
 
-# Articles: /resources/my-article
-RewriteRule ^resources/([a-z0-9-]+)/?$ article.php?slug=$1 [L,QSA]
+# Articles: /articles/my-article
+RewriteRule ^articles/([a-z0-9-]+)/?$ article.php?slug=$1 [L,QSA]
 
 # Sitemap
 RewriteRule ^sitemap\.xml$ sitemap.php [L]

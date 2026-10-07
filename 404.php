@@ -7,11 +7,11 @@ include __DIR__ . '/includes/header.php';
 <section class="page-hero">
     <div class="container narrow center">
         <p class="eyebrow">404</p>
-        <h1>Even great leaders take a wrong turn.</h1>
-        <p class="lead">The page you're looking for isn't here. Let's get you back on track.</p>
-        <div class="hero-actions" style="justify-content:center">
-            <a class="btn btn-primary" href="/">Go home</a>
-            <a class="btn btn-ghost" href="/resources">Browse resources</a>
+        <h1>Well, this one’s on me.</h1>
+        <p class="lead">The page you’re looking for isn’t here. A good leader owns the mistake and points you somewhere better.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="/start-here">Start here</a>
+            <a class="btn btn-ghost" href="/articles">Read the articles</a>
         </div>
     </div>
 </section>
