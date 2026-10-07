@@ -83,6 +83,13 @@ Draft newsletter content lives in `docs/newsletter/` (not public):
 - `welcome-sequence.md`: three automatic welcome emails
 - `field-guide-draft.md`: a free "Worst Manager Ever's Field Guide" download for new subscribers
 
+## Marketing assets
+
+Saved in `docs/social/` (not public):
+- `facebook-launch-post.md`: the Facebook launch post text (personal and short versions) with posting tips
+- `facebook-square-1080.png`: the square Facebook image that goes with it
+- `facebook-link-1200x630.png`: a wide alternate version
+
 ## SEO built in
 
 - Keyword-focused addresses (e.g. `/articles/manager-vs-leader`), with your own titles kept on the page
