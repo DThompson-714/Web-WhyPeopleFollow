@@ -41,7 +41,8 @@ Not the annual review. The people who show up to your retirement party, and the 
 
 ---
 
-**Leadership is not a license to do less; it is a responsibility to do more.**
+**"Leadership is not a license to do less; it is a responsibility to do more."**
+— Simon Sinek
 
 You can't make someone follow you. But you can become someone worth following.
 

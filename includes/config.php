@@ -86,9 +86,10 @@ $reading_path = [
     'top-down-management-forced-retirement',
 ];
 
-// Quotes that rotate through the site.
+// Quotes that rotate through the site. Quotes by someone other than David
+// include their author as 'Quote text' => 'Author'.
 $quotes = [
-    'Leadership is not a license to do less; it is a responsibility to do more.',
+    'Leadership is not a license to do less; it is a responsibility to do more.' => 'Simon Sinek',
     'The world has enough managers. What it needs are more leaders.',
     'Process without emotional intelligence is just procedure.',
     'Nobody should ever leave a room feeling like less of a person than when they walked in.',

@@ -94,7 +94,7 @@ include __DIR__ . '/includes/header.php';
     <div class="container narrow reveal">
         <blockquote>
             <p>Leadership is not a license to do less; it is a responsibility to do more.</p>
-            <footer><span class="signature">David</span></footer>
+            <footer><cite class="quote-cite">Simon Sinek</cite></footer>
         </blockquote>
     </div>
 </section>
