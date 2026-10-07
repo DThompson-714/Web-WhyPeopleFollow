@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /data/
+Disallow: /includes/
+
+Sitemap: https://www.whypeoplefollow.com/sitemap.xml
